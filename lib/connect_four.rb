@@ -62,8 +62,11 @@ class ConnectFourBoard
   end
 
   def display_board
+    print ' '
+    (0..6).each { |i| print "#{i} " }
+    puts
     @board.transpose.reverse.each do |row|
-      puts row.map { |cell| cell.nil? ? ' ' : cell }.join('|')
+      puts '|' + row.map { |cell| cell.nil? ? ' ' : cell }.join('|') + '|'
     end
   end
 end
@@ -81,7 +84,26 @@ class ConnectFour
   def switch_player
     @current_player = @current_player == 'X' ? 'O' : 'X'
   end
+
+  def play_turn(column)
+    if @board.place_piece(column, @current_player)
+      switch_player unless @board.check_winner(@current_player)
+    else
+      puts 'Invalid column, try again.'
+    end
+  end
+
+  def play
+    until @board.check_winner(@current_player)
+      @board.display_board
+      puts "Player #{@current_player}, select a column (0-6):"
+      column = gets.chomp.to_i
+      play_turn(column)
+    end
+    @board.display_board
+    puts "Player #{@current_player} wins!"
+  end
 end
 
-board = ConnectFourBoard.new
-board.display_board
+game = ConnectFour.new
+game.play
