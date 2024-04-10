@@ -29,6 +29,7 @@ class ConnectFourBoard
     end
     false
   end
+
   def check_vertical(piece)
     @board.transpose.each do |column|
       column.each_cons(4) do |four|
@@ -75,6 +76,10 @@ class ConnectFour
   def initialize
     @board = ConnectFourBoard.new
     @current_player = 'X'
+  end
+
+  def switch_player
+    @current_player = @current_player == 'X' ? 'O' : 'X'
   end
 end
 

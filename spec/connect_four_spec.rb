@@ -16,6 +16,19 @@ describe ConnectFour do
       expect(game.current_player).to eql('X')
     end
   end
+  describe '#switch_player' do
+    it 'switches the player X to O' do
+      game = ConnectFour.new
+      game.switch_player
+      expect(game.current_player).to eql('O')
+    end
+    it 'switches the player O to X' do
+      game = ConnectFour.new
+      game.switch_player
+      game.switch_player
+      expect(game.current_player).to eql('X')
+    end
+  end
 end
 describe ConnectFourBoard do
   describe '#initialize' do
